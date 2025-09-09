@@ -1,16 +1,14 @@
-import React, {useEffect} from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-interface props{
-    message:string,
-    typeMessage:'success' | 'error' | 'warning' | 'info',
-    setMessage:React.Dispatch<React.SetStateAction<string>>
-}
-function Alerts({message,typeMessage,setMessage}:props){
+'use client'
+import React from 'react'
+import {useMessage} from "@/context/messageContext";
+import {useEffect} from "react";
+import {toast, ToastContainer} from "react-toastify";
+
+function Alerts(){
+    const {message,setMessage,typeMessage}=useMessage()
     useEffect(() => {
         if (message!==null){
-            toast(  <div style={{ fontFamily: 'iranYeken', fontSize: '0.998rem' }}>
-                {message}
-            </div>, {type:typeMessage,});
+            toast(  <div style={{ fontFamily: 'iranSans', fontSize: '0.998rem' }}>{message}</div>as React.ReactNode, {type:typeMessage,});
             setMessage(null)
         }
     }, [message]);

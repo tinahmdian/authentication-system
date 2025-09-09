@@ -7,18 +7,17 @@ import google from '@/assets/icons/google.svg';
 import facebook from '@/assets/icons/facebook.svg';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Alerts from '@/components/ui/Alerts';
 import InputField from '@/components/ui/InputField';
 import PasswordToggleInput from '@/components/ui/PasswordToggleInput';
 import Button from '@/components/ui/Button';
 import DropzoneUpload from '@/components/ui/DropzoneUpload';
 import AuthLayout from "@/components/AuthLayout";
+import {useMessage} from "@/context/messageContext";
 
 export default function SignUpPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const [alertMessage, setAlertMessage] = useState('');
-    const [typeMessage, setTypeMessage] = useState<'success'|'error'|'info'|'warning'>('success');
+    const {handleOpenMessage}=useMessage()
 const validationSchema = Yup.object({
         name: Yup.string().required('نام الزامی است'),
         email: Yup.string().trim().email('ایمیل معتبر نیست').notRequired(),
@@ -48,14 +47,14 @@ const validationSchema = Yup.object({
                 const users = JSON.parse(localStorage.getItem('users') || '[]');
                 users.push(values);
                 localStorage.setItem('users', JSON.stringify(users));
-                setAlertMessage('ثبت نام با موفقیت انجام شد!');
+                handleOpenMessage('ثبت نام با موفقیت انجام شد!','success')
                 setTimeout(() => {
                     router.push('/login');
                 }, 1000);
             }
             catch {
-                setAlertMessage(' مشکلی در ثبت نام شما پیش آمده لطفا مجددا تلاش کنید .');
-                setTypeMessage('error')
+
+                handleOpenMessage('مشکلی در ثبت نام شما پیش آمده لطفا مجددا تلاش کنید .','error')
             }
 
         },
@@ -63,7 +62,7 @@ const validationSchema = Yup.object({
     return (
         <>
             <AuthLayout type="signup">
-                <div className="w-full md:w-1/2 p-8">
+                <div>
                     <h2 className="text-3xl font-bold text-center mb-6">ثبت نام</h2>
                     <form onSubmit={formik.handleSubmit} className="space-y-4" aria-label="فرم ثبت نام">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -83,7 +82,7 @@ const validationSchema = Yup.object({
                                 onChange={formik.handleChange}
                                 error={formik.touched.name && Boolean(formik.errors.name)}
                                 helperText={formik.touched.name?formik.errors.name:''}
-                                placeholder="مثال: علی رضایی"
+                                placeholder="مثال: تینا احمدیان"
                             />
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -137,7 +136,6 @@ const validationSchema = Yup.object({
                     </p>
                 </div>
             </AuthLayout>
-            {alertMessage!=='' && <Alerts message={alertMessage} typeMessage={typeMessage} setMessage={setAlertMessage} />}
             </>
     );
 }

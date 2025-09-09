@@ -41,9 +41,14 @@ export default function DropzoneUpload({ value, onChange }: DropzoneUploadProps)
                     )}
                 </div>
             ) : (
-                <div className="relative w-24 h-24 mx-auto">
-                    <Image src={value} alt="Avatar Preview" width={96} height={96} className="rounded-full" />
-   <button
+                <div className="relative w-[110px] h-[70px] mx-auto my-1">
+                    <Image
+                        src={value}
+                        alt="Avatar Preview"
+                        fill
+                        className="rounded-full object-cover"
+                    />
+                    <button
                         type="button"
                         onClick={() => onChange('')}
                         className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-2 cursor-pointer"

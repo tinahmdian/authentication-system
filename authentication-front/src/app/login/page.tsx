@@ -12,15 +12,16 @@ import facebook from '@/assets/icons/facebook.svg';
 import InputField from '@/components/ui/InputField';
 import PasswordToggleInput from '@/components/ui/PasswordToggleInput';
 import Button from '@/components/ui/Button';
-import Alerts from '@/components/ui/Alerts';
 import AuthLayout from "@/components/AuthLayout";
+import {toast} from "react-toastify";
+import error = toast.error;
+import {User} from "@/app/page";
+import {useMessage} from "@/context/messageContext";
 
 export default function LoginPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const [alertMessage, setAlertMessage] = useState('');
-    const [typeMessage, setTypeMessage] = useState<'success' | 'error'>('success');
-
+    const {handleOpenMessage}=useMessage()
     const validationSchema = Yup.object({
         phone: Yup.string()
             .matches(/^09\d{9}$/, 'شماره باید با 09 شروع شود و 11 رقم باشد')
@@ -36,20 +37,18 @@ export default function LoginPage() {
             try {
                 const users = JSON.parse(localStorage.getItem('users') || '[]');
                 const user = users.find(
-                    (u: any) => u.phone === values.phone && u.password === values.password
+                    (u: User) => u.phone === values.phone && u.password === values.password
                 );
                 if (!user) {
-                    setTypeMessage('error');
-                    setAlertMessage('شماره یا رمز عبور اشتباه است');
+                    handleOpenMessage('شماره یا رمز عبور اشتباه است','error')
                 } else {
-                    localStorage.setItem('activeUser', JSON.stringify(user));
-                    setTypeMessage('success');
-                    setAlertMessage('شما با موفقیت وارد شدید');
+                    // برای این فقط شماره رو ست میکنم حجم عکس ها با فرمت base 64 زیاده و نمیخوام دوباره تکرار کنم
+                    localStorage.setItem('activeUser', values.phone);
+                    handleOpenMessage('شما با موفقیت وارد شدید ','success')
                     setTimeout(()=>{  router.push('/');},2000)
                 }
             } catch {
-                setAlertMessage('مشکلی در ورود شما پیش آمده، لطفا مجددا تلاش کنید.');
-                setTypeMessage('error');
+                handleOpenMessage('مشکلی در ورود شما پیش آمده، لطفا مجددا تلاش کنید.','error')
             } finally {
                 setLoading(false);
             }
@@ -119,13 +118,6 @@ export default function LoginPage() {
                     </p>
                 </div>
             </AuthLayout>
-            {alertMessage!=='' && (
-                <Alerts
-                    message={alertMessage}
-                    typeMessage={typeMessage}
-                    setMessage={setAlertMessage}
-                />
-            )}
         </>
     );
 }

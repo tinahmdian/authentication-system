@@ -2,8 +2,11 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import {useRouter} from "next/navigation";
-interface User {
+import Button from "@/components/ui/Button";
+export interface User {
   name: string;
+  phone: string;
+  password: string;
   email?: string;
   avatar?: string;
 }
@@ -11,9 +14,11 @@ export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null);
   const router=useRouter()
   useEffect(() => {
-    const activeUser = localStorage.getItem('activeUser');
-    if (activeUser) {
-      setUser(JSON.parse(activeUser));
+      const activePhone = localStorage.getItem('activeUser');
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const activeUser = users.find((u:User) => u.phone === activePhone);
+      if (activeUser) {
+      setUser(activeUser);
     }
     else  router.push('/login')
   }, []);
@@ -38,18 +43,20 @@ export default function DashboardPage() {
                 </div>
             )}
           </div>
-          <h2 className="text-2xl font-bold text-gray-800">{user.name}</h2>
+          <h2 className="text-2xl font-bold text-gray-800 my-1">{user.name}</h2>
           {user.email && (
-              <p className="text-gray-600 mt-2">{user.email}</p>
+              <p className="text-gray-600 mt-2 my-1">{user.email}</p>
           )}
-          <button
+          <Button
+              type={'button'}
+              variant={'solid'}
+              size={'md'}
               onClick={() => {
                 localStorage.removeItem('activeUser');
                 window.location.href = '/login';
-              }}
-              className="mt-6 w-full py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition">
+              }}>
             خروج
-          </button>
+          </Button>
         </div>
       </div>
   );

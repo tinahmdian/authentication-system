@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import bg from '@/assets/images/76f63867-ff15-4e02-a36d-65a769a4b36a.jpg';
 import { ReactNode } from 'react';
+import Alerts from "@/components/ui/Alerts";
 
 interface AuthLayoutProps {
     children: ReactNode;
@@ -29,6 +30,7 @@ export default function AuthLayout({ children, type }: AuthLayoutProps) {
                 </div>
                 <div className="w-full md:w-1/2 p-8">{children}</div>
             </div>
+            <Alerts/>
         </div>
     );
 }
