@@ -33,7 +33,7 @@ It includes **signup**, **login**, and a **dashboard** with user management usin
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
+git clone https://github.com/tinahmdian/authentication-system.git
 cd authentication-front
 npm install
 npm run dev
