@@ -19,7 +19,7 @@ It includes **signup**, **login**, and a **dashboard** with user management usin
 ---
 
 ##  Tech Stack
-- [Next.js 14](https://nextjs.org/)
+- [Next.js 15](https://nextjs.org/)
 - [React](https://react.dev/)
 - [Formik](https://formik.org/)
 - [Yup](https://github.com/jquense/yup)
