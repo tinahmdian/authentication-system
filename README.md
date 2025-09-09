@@ -1,6 +1,6 @@
 # authentication-system
 #  Authentication App with Next.js,Typescript, Formik & Tailwind
-[![Deploy with Vercel](https://vercel.com/button)]([https://vercel.com/new/git/external?repository-url=https://github.com/USERNAME/REPO](https://authentication-system-gamma.vercel.app/login))
+[![Deploy with Vercel](https://vercel.com/button)]((https://authentication-system-gamma.vercel.app/login))
 
 This project is a simple **authentication system** built with **Next.js 15 (App Router)**.  
 It includes **signup**, **login**, and a **dashboard** with user management using `localStorage`.
