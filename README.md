@@ -1,6 +1,5 @@
-# persian authentication-system
-#  Authentication App with Next.js,Typescript, Formik & Tailwind
-[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel)](https://authentication-system-gamma.vercel.app/login)
+# Persian authentication-system
+# RTL Authentication App with Next.js,Typescript, Formik & Tailwind
 
 This project is a simple **authentication system** built with **Next.js 15 (App Router)**.  
 It includes **signup**, **login**, and a **dashboard** with user management using `localStorage`.
